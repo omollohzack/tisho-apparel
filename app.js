@@ -1,14 +1,14 @@
 (() => {
   'use strict';
 
-  const WHATSAPP = 'https://wa.me/254746099135';
+  const WHATSAPP = '254746099135';
   const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   const CYLINDER_RADIUS = 1020;
   const ANGLE_PER_PIECE = 28;
   const homeHeartColours = [{ name: 'Maroon', product: 'home-heart-maroon', hex: '#633638' }, { name: 'Black', product: 'home-heart-black', hex: '#171917' }];
-  const products = [
+  const builtInProducts = [
     {
       id: 'home-heart-maroon',
       title: 'Home Heart Tee — Maroon',
@@ -169,13 +169,15 @@
     }
   ];
 
+  let catalogueData = window.TishoAdmin?.getCatalogue?.(builtInProducts) || builtInProducts;
+  let products = window.TishoAdmin?.effectiveProducts?.(catalogueData) || catalogueData;
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const productById = id => products.find(product => product.id === id);
   const esc = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 
   function galleryPhoto(product) {
-    return product.photos.find(photo => !photo.packagingOnly);
+    return product.photos[Number.isInteger(product.primaryPhoto) ? product.primaryPhoto : 0] || product.photos.find(photo => !photo.packagingOnly);
   }
 
   function printCard(product, asButton = true, photoIndex = 0, wallMode = false) {
@@ -202,32 +204,46 @@
   const wall = $('#wall');
   const stage = $('#gallery-stage');
   const progress = $('#gallery-progress');
-  const panels = products.map((product, index) => {
+  const panels = [];
+  const dots = [];
+
+  function createWallPanel(product, index) {
     const panel = document.createElement('div');
     panel.className = 'wall-panel';
     panel.dataset.index = String(index);
+    panel.dataset.productId = product.id;
     panel.innerHTML = printCard(product, true, 0, true);
     panel.querySelector('button').addEventListener('click', event => {
-      if (suppressClick) {
-        event.preventDefault();
-        return;
-      }
+      if (suppressClick) { event.preventDefault(); return; }
       if (Math.abs(current - index) < .25) openProduct(index, panel);
       else snapTo(index);
     });
     wall.appendChild(panel);
     return panel;
-  });
+  }
 
-  products.forEach((product, index) => {
-    const dot = document.createElement('button');
-    dot.className = 'progress-dot';
-    dot.type = 'button';
-    dot.setAttribute('aria-label', `Show ${String(product.title).replace(/[<>]/g, '')}`);
-    dot.addEventListener('click', () => snapTo(index));
-    progress.appendChild(dot);
-  });
-  const dots = $$('.progress-dot', progress);
+  function rebuildWall() {
+    wall.replaceChildren();
+    progress.replaceChildren();
+    panels.length = 0;
+    dots.length = 0;
+    products.forEach((product, index) => {
+      panels.push(createWallPanel(product, index));
+      const dot = document.createElement('button');
+      dot.className = 'progress-dot';
+      dot.type = 'button';
+      dot.setAttribute('aria-label', `Show ${String(product.title).replace(/[<>]/g, '')}`);
+      dot.addEventListener('click', () => snapTo(index));
+      progress.appendChild(dot);
+      dots.push(dot);
+    });
+    document.querySelector('.gallery-intro .eyebrow span').textContent = `01—${String(products.length).padStart(2, '0')}`;
+    stage.setAttribute('aria-label', `${products.length} Tisho designs. Drag, scroll, or use left and right arrow keys.`);
+  }
+  rebuildWall();
+  const wallCatalogueCount = products.length;
+  document.querySelector('.gallery-intro .eyebrow span').textContent = `01—${String(wallCatalogueCount).padStart(2, '0')}`;
+  stage.setAttribute('aria-label', `${wallCatalogueCount} Tisho designs. Drag, scroll, or use left and right arrow keys.`);
 
   let current = 0;
   let velocity = 0;
@@ -387,7 +403,7 @@
     const colour = selectedColour ? ` in ${selectedColour}` : '';
     const size = selectedSize ? `, size ${selectedSize}` : '';
     const message = `Hello Tisho Apparel, I would like to order the ${product.title}${colour}${size}. Please send me a quote.`;
-    orderLink.href = `${WHATSAPP}?text=${encodeURIComponent(message)}`;
+    orderLink.href = `${window.TishoAdmin?.whatsappUrl?.() || `https://wa.me/${WHATSAPP}`}?text=${encodeURIComponent(message)}`;
   }
 
   function renderProduct() {
@@ -504,7 +520,7 @@
 
   function openProduct(index, sourcePanel) {
     activeProduct = index;
-    activeProductPhoto = 0;
+    activeProductPhoto = Number.isInteger(products[index].primaryPhoto) ? products[index].primaryPhoto : 0;
     selectedSize = '';
     selectedColour = products[index].colour;
     lastFocus = document.activeElement;
@@ -549,6 +565,19 @@
       if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
       else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
     }
+  });
+
+  window.addEventListener('tisho:catalogue-refresh', () => {
+    const previousId = products[Math.round(current)]?.id;
+    products = window.TishoAdmin?.effectiveProducts?.(catalogueData) || catalogueData;
+    const nextIndex = Math.max(0, products.findIndex(product => product.id === previousId));
+    current = Math.min(nextIndex, Math.max(0, products.length - 1));
+    target = null;
+    velocity = 0;
+    closeProduct();
+    rebuildWall();
+    lastFront = -1;
+    renderWall();
   });
 
   window.addEventListener('resize', renderWall);

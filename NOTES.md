@@ -107,3 +107,66 @@ A meta CSP/referrer policy is useful but not equivalent to HTTP response headers
 - The browser did not support `file://` navigation, so direct file opening was not exercised there; local HTTP testing was used instead. The site uses relative local resources and requires no server runtime.
 
 No commits or pushes were made during round two.
+
+## Round 3 — side menu and admin workspace
+
+### Side drawer
+
+- A hamburger button is present at every viewport size beside the existing desktop inline navigation.
+- The animated drawer includes The Wall, Custom Work, About, Order on WhatsApp, and an Admin item separated at the bottom.
+- It closes through navigation-link clicks, outside/backdrop clicks, and Escape. A close button is also provided.
+
+### Login and security
+
+- Admin opens a passcode form. Only a SHA-256 hash is built into the JavaScript; the entered passcode is hashed with Web Crypto and compared to the stored hash. The temporary passcode can be changed in the panel, which writes the new SHA-256 hash to localStorage.
+- Successful login is stored only in `sessionStorage`, so a refresh in the same tab retains the session. Logout clears it. Wrong passcodes show an error and do not open the editor.
+- **Security limitation:** this is a client-side convenience lock on a static site, **not server-grade security**. Browser storage, exported JSON, and repository access are the actual control points. There is no server authorization or protected backend.
+- The temporary passcode is intentionally not printed in these notes.
+
+### Catalogue overrides
+
+`admin.js` loads before `app.js` and exposes only catalogue/refresh helpers. The built-in catalogue stays intact in code; overrides are stored in localStorage under **`tisho-admin-overrides-v1`**.
+
+For each product the editor supports:
+- Title, short line, description, and colour text.
+- Show/hide from the wall and catalogue views while retaining the entry in admin data and exports.
+- Up/down wall ordering.
+- Selection of an existing primary wall photo.
+
+Global controls:
+- WhatsApp number, digits only, propagated to every WhatsApp order link and generated product-order message.
+- Reset to defaults, clearing the overrides and restoring the built-in catalogue and number.
+- Change passcode, replacing the stored hash.
+- Logout.
+
+All admin-entered text is escaped before HTML rendering; the wall is rebuilt from the effective data when overrides change, and colour selectors exclude hidden variants. No price fields exist.
+
+### Export-to-permanent flow
+
+**Export changes (to make them permanent, send this file to your developer)** downloads **`tisho-catalogue-export.json`** containing the full effective product catalogue in wall order, including hidden flags, plus the WhatsApp setting. The owner sends this file to the developer, who bakes the changes into the source. Local overrides alone affect only the current browser and do not publish changes to other visitors.
+
+### Round-three verification
+
+- Desktop **1440×1000** and mobile **390×844** checks completed; drawer and editor render without horizontal overflow.
+- Drawer opens and closes via outside click, Escape, and link click; Admin is present.
+- Wrong passcode rejected; correct passcode opens the panel; same-tab refresh retains the session; logout clears it.
+- Test title edit, hide, reorder, and primary-photo selection applied immediately and survived reload.
+- Reset restored all 13 original wall pieces and the original WhatsApp number.
+- WhatsApp changes propagated to static and generated order links.
+- Passcode change stored a new hash, rejected the old credential, accepted the new one, and was then restored to the brief’s temporary credential.
+- Export fired the browser download event and displayed the export success message. This browser runtime returned no download metadata or accessible exported file, so the downloaded JSON’s filename/content could not be independently inspected. The export implementation serializes the full effective catalogue and settings with the required filename.
+- Final test state was cleaned: no overrides, no admin session, original passcode restored, and the original 13-piece wall visible.
+- `node --check app.js` and `node --check admin.js` pass. Static local-reference and target-blank rel checks pass. The self-only CSP remains in place with no inline script blocks.
+
+No commits or pushes were made during round three.
+
+### Round-three styling re-verification (Cosmo fix brief)
+
+- Confirmed the served `styles.css` contains the menu, drawer, and complete admin rules; no inline style block or injected admin CSS is used.
+- Visually inspected the desktop **42×42** hamburger and mobile **34×34** hamburger, the styled drawer, centred login, and usable product editor at **1440×1000** and **390×844**.
+- Close button, backdrop click, and Escape all close the drawer.
+- Wrong passcode shows a visible error; the correct passcode opens the styled editor.
+- Retitle and hide edits update the wall, persist after reload, and Reset restores the original 13-piece wall.
+- Export again fired the browser download event; the runtime still returned no downloadable metadata or accessible file for independent filename/content inspection.
+- Final visitor view is clean: no overrides, logged out, original 13-piece wall, and no horizontal overflow.
+- No additional source change was needed for this verification because the styling and notes had already landed after Cosmo’s earlier check. No commits or pushes were made.

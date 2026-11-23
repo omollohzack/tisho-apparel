@@ -22,8 +22,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
-body.product-open { overflow: hidden; }
-button, a, input { font: inherit; }
+body.product-open, body.drawer-open, body.admin-open { overflow: hidden; }
+button, a, input, textarea, select { font: inherit; }
 a { color: inherit; text-decoration: none; }
 button { color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
@@ -586,7 +586,86 @@ h1, h2, p { margin-top: 0; }
   .gallery-intro h1 { font-size: 31px; }
 }
 
-@media (prefers-reduced-motion: reduce) {
+.header-actions { display: flex; align-items: center; gap: 14px; }
+.menu-toggle { display: flex; width: 42px; height: 42px; padding: 0; align-items: center; justify-content: center; flex-direction: column; gap: 7px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+.menu-toggle span { display: block; width: 17px; height: 1px; background: var(--ink); }
+.menu-toggle:hover { background: #e9eae5; }
+.drawer-backdrop { position: fixed; z-index: 150; inset: 0; background: #10131066; backdrop-filter: blur(2px); }
+.side-drawer { position: fixed; z-index: 160; top: 0; bottom: 0; left: 0; display: flex; width: min(390px, 88vw); padding: 32px 34px; flex-direction: column; background: var(--paper); box-shadow: 18px 0 45px #17191720; transform: translateX(-105%); transition: transform .42s var(--ease); }
+.side-drawer.is-open { transform: translateX(0); }
+.drawer-header { display: flex; align-items: center; justify-content: space-between; }
+.drawer-close { padding: 0; border: 0; background: none; font-size: 32px; font-weight: 300; cursor: pointer; }
+.drawer-nav { display: flex; margin-top: 70px; flex-direction: column; }
+.drawer-nav a { display: flex; padding: 22px 0; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); font-family: Georgia, serif; font-size: 28px; letter-spacing: -.03em; }
+.drawer-nav a span { color: var(--muted); font-family: Arial, sans-serif; font-size: 10px; letter-spacing: .1em; }
+.drawer-nav a:hover { color: var(--green); }
+.drawer-admin { margin-top: auto; padding-top: 28px; border-top: 1px solid var(--ink); }
+.drawer-admin button { display: flex; width: 100%; padding: 8px 0; align-items: center; justify-content: space-between; border: 0; background: none; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; }
+.admin-view { position: fixed; z-index: 180; inset: 0; overflow-y: auto; visibility: hidden; opacity: 0; background: var(--paper); transform: translateY(15px); transition: opacity .25s, transform .3s, visibility 0s .3s; }
+.admin-view.is-open { visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
+.admin-header { display: flex; height: 82px; padding: 0 4vw; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); }
+.admin-shell { width: min(980px, calc(100% - 48px)); margin: 0 auto; padding: 70px 0 90px; }
+.admin-login { max-width: 420px; margin: 8vh auto 0; }
+.admin-login h2, .admin-panel-heading h2 { margin-bottom: 18px; font-family: Georgia, serif; font-size: 46px; font-weight: 400; letter-spacing: -.04em; }
+.admin-login > p:not(.eyebrow):not(.admin-small) { color: var(--muted); font-size: 14px; line-height: 1.7; }
+.admin-login form { margin-top: 32px; }
+.admin-login label, .admin-settings label, .admin-passcode-form label { display: flex; margin: 18px 0 8px; flex-direction: column; gap: 5px; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.admin-login input, .admin-settings input, .admin-passcode-form input, .admin-product input, .admin-product textarea, .admin-product select { width: 100%; padding: 13px 14px; border: 1px solid var(--line); border-radius: 0; color: var(--ink); background: #fff; font-size: 13px; }
+.admin-primary, .admin-secondary { display: inline-flex; padding: 13px 18px; align-items: center; justify-content: center; gap: 14px; border: 1px solid var(--ink); font-size: 10px; font-weight: 700; letter-spacing: .06em; cursor: pointer; }
+.admin-primary { color: #fff; background: var(--ink); }
+.admin-primary:hover { background: var(--green); }
+.admin-secondary { background: transparent; }
+.admin-secondary:hover { background: #e9eae5; }
+.admin-login .admin-primary { width: 100%; margin-top: 16px; justify-content: space-between; }
+.admin-primary:disabled, .admin-secondary:disabled { opacity: .4; cursor: not-allowed; }
+.admin-small { color: var(--muted); font-size: 11px; line-height: 1.65; }
+.admin-login .admin-small { margin-top: 24px; }
+.admin-error { min-height: 18px; margin-top: 12px; color: #a43e32; font-size: 12px; line-height: 1.5; }
+.admin-panel-heading { display: flex; align-items: start; justify-content: space-between; gap: 25px; }
+.admin-panel-heading h2 { margin-bottom: 10px; }
+.admin-panel-heading p:not(.eyebrow) { max-width: 550px; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.admin-settings, .admin-passcode-form { margin-top: 32px; padding: 24px; border: 1px solid var(--line); background: #efefe9; }
+.settings-row { display: flex; gap: 12px; }
+.settings-row input { max-width: 260px; }
+.admin-settings small { color: var(--muted); font-size: 9px; font-weight: 400; letter-spacing: 0; text-transform: none; }
+.admin-product { margin-top: 24px; padding: 26px; border: 1px solid var(--line); background: #fff; }
+.admin-product.is-hidden { background: #eaeae5; }
+.admin-product-heading { display: flex; margin-bottom: 24px; align-items: start; justify-content: space-between; gap: 18px; }
+.admin-product-heading .eyebrow { margin-bottom: 8px; color: var(--muted); }
+.admin-product-heading h3 { margin: 0; font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.admin-reorder { display: flex; gap: 8px; }
+.admin-reorder button { width: 34px; height: 34px; border: 1px solid var(--line); background: transparent; cursor: pointer; }
+.admin-product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.admin-product label { display: flex; flex-direction: column; gap: 8px; color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.admin-product .admin-full { grid-column: 1 / -1; }
+.admin-product textarea { resize: vertical; line-height: 1.6; }
+.admin-product-footer { display: flex; margin-top: 22px; padding-top: 18px; align-items: center; justify-content: space-between; gap: 18px; border-top: 1px solid var(--line); }
+.admin-toggle { display: flex !important; align-items: center; flex-direction: row !important; gap: 9px !important; color: var(--ink) !important; font-size: 10px !important; font-weight: 400 !important; letter-spacing: 0 !important; text-transform: none !important; }
+.admin-toggle input { width: 16px; height: 16px; margin: 0; accent-color: var(--green); }
+.admin-passcode-form h3 { margin: 0; font-family: Georgia, serif; font-size: 25px; font-weight: 400; }
+.admin-passcode-form p { color: var(--muted); font-size: 12px; line-height: 1.6; }
+.admin-passcode-form .admin-secondary { margin-top: 16px; }
+.admin-actions { display: flex; margin-top: 28px; flex-direction: column; align-items: stretch; gap: 12px; }
+.admin-actions .admin-secondary { align-self: flex-start; }
+.admin-status { margin-top: 20px; color: var(--green); font-size: 12px; line-height: 1.6; }
+.admin-status.error { color: #a43e32; }
+@media (max-width: 760px) {
+  .header-actions { gap: 8px; }
+  .menu-toggle { width: 34px; height: 34px; }
+  .admin-header { height: 70px; padding: 0 20px; }
+  .admin-shell { width: calc(100% - 40px); padding: 45px 0 65px; }
+  .admin-login h2, .admin-panel-heading h2 { font-size: 38px; }
+  .admin-panel-heading { align-items: start; }
+  .admin-panel-heading .admin-secondary { padding: 10px 12px; }
+  .admin-product { padding: 20px 16px; }
+  .admin-product-grid { grid-template-columns: 1fr; }
+  .admin-product-footer { align-items: start; flex-direction: column; }
+  .admin-product-footer .admin-secondary { width: 100%; }
+  .settings-row { align-items: stretch; flex-direction: column; }
+  .settings-row input { max-width: none; }
+  .gift-photo { max-width: 100%; }
+}
+
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
