@@ -144,6 +144,7 @@ h1, h2, p { margin-top: 0; }
   position: absolute;
   z-index: 3;
   inset: 92px 0 178px;
+  pointer-events: none;
   contain: layout paint;
   overflow: hidden;
   cursor: grab;
@@ -153,7 +154,7 @@ h1, h2, p { margin-top: 0; }
   user-select: none;
 }
 .gallery-stage.is-dragging { cursor: grabbing; }
-.wall { position: absolute; inset: 0; transform-style: preserve-3d; }
+.wall { position: absolute; inset: 0; pointer-events: auto; transform-style: preserve-3d; }
 .wall-panel {
   position: absolute;
   top: 47%;
@@ -213,6 +214,9 @@ h1, h2, p { margin-top: 0; }
 .service-branding { color: #f2f2ed; background: #202722; }
 .service-branding strong { margin: 30px 0; color: #d0a347; }
 .service-branding > span { color: #b8beb9; font-size: 9px; }
+.nairobi-city-panel { background: #f2f0e9; }
+.nairobi-city-panel strong { margin: 28px 0; font-family: Arial, sans-serif; font-size: 40px; font-weight: 900; letter-spacing: -.03em; line-height: .96; }
+.nairobi-city-panel > span { color: var(--green); font-size: 9px; letter-spacing: .13em; }
 .print-meta {
   position: absolute;
   right: 0;
@@ -276,7 +280,8 @@ h1, h2, p { margin-top: 0; }
 }
 .progress-dot.active { width: 38px; background: var(--ink); }
 .progress-dot:hover { background: var(--green); }
-.gallery-caption { text-align: center; pointer-events: auto; }
+.gallery-caption { text-align: center; pointer-events: none; }
+.gallery-caption button { pointer-events: auto; }
 .caption-kicker { margin-bottom: 9px; color: var(--muted); font-size: 8px; font-weight: 700; letter-spacing: .16em; }
 .caption-main { display: flex; align-items: center; justify-content: center; gap: 22px; }
 .caption-main h2 { margin: 0; font-family: Georgia, 'Times New Roman', serif; font-size: 28px; font-weight: 400; letter-spacing: -.03em; }
@@ -374,6 +379,10 @@ h1, h2, p { margin-top: 0; }
 .custom-copy .eyebrow { color: #a8b0a9; }
 .custom-copy blockquote { max-width: 450px; margin: 35px 0 20px; padding-left: 20px; border-left: 2px solid var(--gold); font-family: Georgia, serif; font-size: 20px; font-style: italic; line-height: 1.45; }
 .custom-copy > p:not(.eyebrow) { max-width: 460px; color: #b8beb9; font-size: 14px; line-height: 1.75; }
+.custom-points { max-width: 470px; margin: 28px 0 0; padding: 0; list-style: none; border-top: 1px solid #ffffff2b; }
+.custom-points li { display: flex; padding: 16px 0; flex-direction: column; gap: 7px; border-bottom: 1px solid #ffffff2b; }
+.custom-points strong { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.custom-points span { color: #b8beb9; font-size: 12px; line-height: 1.6; }
 .pill-button { display: inline-flex; margin-top: 22px; padding: 16px 22px; align-items: center; gap: 35px; font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
 .pill-button.dark { color: var(--ink); background: #fff; }
 .pill-button:hover { background: var(--gold); }
@@ -414,6 +423,13 @@ h1, h2, p { margin-top: 0; }
 .tissue-left { left: 40px; transform: rotate(-17deg); }
 .tissue-right { right: 50px; background: #d0d1ce; transform: rotate(17deg) scaleX(-1); }
 
+.gift-photo { width: 480px; max-width: 100%; margin: 0 auto; }
+.gift-photo img { display: block; width: 100%; height: auto; max-height: 580px; object-fit: contain; background: #f5f3ee; }
+.gift-photo figcaption { display: flex; margin-top: 15px; align-items: baseline; justify-content: space-between; gap: 18px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.gift-photo a, .about-atmosphere a { color: var(--green); font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.about-atmosphere { width: 230px; margin: 38px 0 0; }
+.about-atmosphere img { display: block; width: 100%; height: auto; max-height: 290px; object-fit: cover; object-position: center 40%; }
+.about-atmosphere figcaption { margin-top: 10px; color: var(--muted); font-size: 10px; line-height: 1.6; }
 .about { display: grid; grid-template-columns: 1.2fr 1fr; gap: 9vw; background: #fafaf7; }
 .about-copy { padding-top: 40px; }
 .about-copy .bio { max-width: 440px; font-family: Georgia, serif; font-size: 23px; line-height: 1.4; }

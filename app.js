@@ -5,18 +5,49 @@
   const SIZES = ['S', 'M', 'L', 'XL', 'XXL'];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const CYLINDER_RADIUS = 1020;
+  const ANGLE_PER_PIECE = 28;
+  const homeHeartColours = [{ name: 'Maroon', product: 'home-heart-maroon', hex: '#633638' }, { name: 'Black', product: 'home-heart-black', hex: '#171917' }];
   const products = [
+    {
+      id: 'home-heart-maroon',
+      title: 'Home Heart Tee — Maroon',
+      short: 'Maroon tee · Home script / striped heart',
+      category: 'HOME HEART · MAROON COLOURWAY',
+      description: 'The Home Heart design in maroon: white Home script across a striped heart, shown in Tisho Apparel’s photo of a man and child laughing on a sofa. An alternate view shows the maroon tee worn by a child. Choose from S, M, L, XL or XXL and request the price directly in WhatsApp.',
+      colour: 'Maroon',
+      colours: homeHeartColours,
+      art: 'home-heart',
+      photos: [
+        { src: '14-home-heart-maroon.webp', alt: 'Maroon Home Heart tee with white Home script over a striped heart, worn by a man beside a laughing child on a sofa', width: 1080, fit: 'cover', post: 'https://www.instagram.com/p/DVvti3OjcrU/' },
+        { src: '15-home-heart-maroon-alt.jpg', alt: 'Child in a maroon Home Heart tee with white Home script over a striped heart', width: 640, fit: 'contain', post: 'https://www.instagram.com/reel/DVvXiYUjSJj/' }
+      ],
+      post: 'https://www.instagram.com/p/DVvti3OjcrU/'
+    },
+    {
+      id: 'home-heart-black',
+      title: 'Home Heart Tee — Black',
+      short: 'Black tee · Home script / green striped heart',
+      category: 'HOME HEART · BLACK COLOURWAY',
+      description: 'The black colourway of the Home Heart Tee: script Home lettering over a green striped heart. The original photo shows the folded tee on a tufted ottoman beside a tote bag. Select a size from S through XXL, then send the piece name and size to Tisho for a direct quote.',
+      colour: 'Black',
+      colours: homeHeartColours,
+      art: 'home-heart',
+      photos: [{ src: '17-home-heart-tee-black.jpg', alt: 'Black Home Heart tee with Home script over a green striped heart, folded on a tufted ottoman beside a tote bag', width: 640, fit: 'contain' }],
+      post: 'https://www.instagram.com/reel/DVqhRtXDY9A/'
+    },
     {
       id: 'home-hoodie',
       title: 'HOME Hoodie',
       short: 'Black hoodie · HOME / tribal pattern',
       category: 'FLAGSHIP · PREMIUM · KENYAN MADE',
-      description: 'Our flagship black hoodie, with “HOME” on one side and a vibrant tribal pattern on the other. Premium, Kenyan made, and rooted in urban fashion.',
+      description: 'The flagship black HOME Hoodie brings together HOME lettering on one side and a vibrant tribal pattern on the other. See it in the original reel, worn by a man beside the white HOME colourway, and in a styled flat lay with sunglasses, jeans, sneakers and a handbag. Premium Kenyan-made streetwear, available in S–XXL with the price quoted in conversation.',
       colour: 'Black',
       art: 'hoodie',
       photos: [
-        { src: '05-home-hoodie-cover.jpg', alt: 'Black HOME hoodie with HOME lettering and a vibrant tribal pattern', fit: 'contain' },
-        { src: '10-home-hoodies-couple.webp', alt: 'Man in a black HOME hoodie and woman in a white HOME hoodie in front of a Kenya Airways plane', fit: 'cover', post: 'https://www.instagram.com/p/DVaz-icDXTP/' }
+        { src: '10-home-hoodies-couple.webp', alt: 'Man in a black HOME hoodie and woman in a white HOME hoodie in front of a Kenya Airways plane', width: 1080, fit: 'cover', post: 'https://www.instagram.com/p/DVaz-icDXTP/' },
+        { src: '05-home-hoodie-cover.jpg', alt: 'Black HOME hoodie with HOME lettering and a vibrant tribal pattern', width: 640, fit: 'contain' },
+        { src: '16-home-hoodie-flatlay.jpg', alt: 'Black HOME hoodie flat lay styled with sunglasses, blue jeans, sneakers and a handbag', width: 640, fit: 'contain', post: 'https://www.instagram.com/reel/DVsvsr-DSMx/' }
       ],
       post: 'https://www.instagram.com/reel/DVQF6xODTq2/'
     },
@@ -25,11 +56,11 @@
       title: 'HOME Tee — Black',
       short: 'Black tee · Vertical HOME / Kenya silhouette',
       category: 'GRAPHIC TEE · HOME COLLECTION',
-      description: 'A black tee with “HOME” written vertically. The O is replaced by a silhouette of Kenya, beside an abstract geometric spear design in gold, green and brown.',
+      description: 'A black tee from the HOME collection, with HOME written vertically on the chest. The O becomes a silhouette of Kenya, accompanied by an abstract geometric spear in gold, green and brown. The hanger photograph shows the print against Tisho Apparel’s peach script backdrop. Choose S–XXL, or switch to the white colourway, and request a price in WhatsApp.',
       colour: 'Black',
       colours: [{ name: 'Black', product: 'home-tee-black', hex: '#171917' }, { name: 'White', product: 'home-tee-white', hex: '#f5f3eb' }],
       art: 'home-tee-black',
-      photos: [{ src: '01-home-tee-black.webp', alt: 'Black HOME tee on a wooden hanger against the peach Tisho Apparel backdrop', fit: 'cover' }],
+      photos: [{ src: '01-home-tee-black.webp', alt: 'Black HOME tee on a wooden hanger against the peach Tisho Apparel backdrop', width: 1080, fit: 'cover' }],
       post: 'https://www.instagram.com/p/DC6UImhITYz/'
     },
     {
@@ -37,13 +68,14 @@
       title: 'HOME Tee — White',
       short: 'White tee · Vertical HOME / Kenya silhouette',
       category: 'GRAPHIC TEE · HOME COLLECTION',
-      description: 'The same vertical HOME design on white: a silhouette of Kenya forms the O, next to an abstract geometric spear in gold, green and brown.',
+      description: 'The white HOME graphic tee features the same vertical HOME lettering, Kenya-silhouette O and gold, green and brown spear detail as the black colourway. Alongside the clean hanger photo, see it worn beside another HOME tee and styled at the beach with denim shorts. Sizes S–XXL are available; Tisho provides the price in the order conversation.',
       colour: 'White',
       colours: [{ name: 'Black', product: 'home-tee-black', hex: '#171917' }, { name: 'White', product: 'home-tee-white', hex: '#f5f3eb' }],
       art: 'home-tee-white',
       photos: [
-        { src: '02-home-tee-white.webp', alt: 'White HOME tee on a wooden hanger against the peach Tisho Apparel backdrop', fit: 'cover' },
-        { src: '07-home-tee-white-worn.jpg', alt: 'Man wearing the white HOME tee beside the same tee on a hanger', fit: 'contain', post: 'https://www.instagram.com/reel/DWBVqGxjVwq/' }
+        { src: '02-home-tee-white.webp', alt: 'White HOME tee on a wooden hanger against the peach Tisho Apparel backdrop', width: 1080, fit: 'cover' },
+        { src: '07-home-tee-white-worn.jpg', alt: 'Man wearing the white HOME tee beside the same tee on a hanger', width: 640, fit: 'contain', post: 'https://www.instagram.com/reel/DWBVqGxjVwq/' },
+        { src: '11-home-tee-beach.jpg', alt: 'Woman at the beach wearing the white HOME graphic tee with denim shorts', width: 640, fit: 'contain', post: 'https://www.instagram.com/reel/DWYjF2ejf-3/' }
       ],
       post: 'https://www.instagram.com/p/DC6UImhITYz/'
     },
@@ -52,10 +84,10 @@
       title: 'Proudly Kenyan Tee',
       short: 'Black tee · Colourful KENYAN graphic',
       category: 'IDENTITY · CULTURE · KENYAN PRIDE',
-      description: 'Premium black. Bold design. Kenyan spirit. More than a T-shirt — it’s an identity, it’s culture, and it’s pride in where we come from. A black tee with a colourful KENYAN graphic.',
+      description: 'Premium black. Bold design. Kenyan spirit. This black Proudly Kenyan Tee carries a colourful KENYAN graphic with PROUDLY set vertically alongside it. The original promotional image combines a model in a yellow beanie and shorts with a separate hanger view of the shirt. More than a T-shirt: an identity, culture and pride in where we come from. Sizes S–XXL; price by DM or WhatsApp.',
       colour: 'Black',
       art: 'proudly-kenyan',
-      photos: [{ src: '04-proudly-kenyan-tee.jpg', alt: 'Proudly Kenyan promo image with a model in a yellow beanie and the black graphic tee also shown on a hanger', fit: 'contain' }],
+      photos: [{ src: '04-proudly-kenyan-tee.jpg', alt: 'Proudly Kenyan promo image with a model in a yellow beanie and the black graphic tee also shown on a hanger', width: 640, fit: 'contain' }],
       post: 'https://www.instagram.com/reel/De1R5NkNto-/'
     },
     {
@@ -63,10 +95,10 @@
       title: 'Nairobi City Tee',
       short: 'White tee · Bold NAIROBI CITY graphic',
       category: 'CITY SERIES · NAIROBI',
-      description: 'A white tee carrying a bold NAIROBI CITY graphic. The original feature shows it hanging on a wooden hanger and presented in Tisho’s sleek black gift box.',
+      description: 'A white tee with a bold NAIROBI CITY graphic. Tisho’s original feature presents the shirt on a wooden hanger and in the brand’s sleek black gift box lined with grey tissue paper. The gift-box photograph appears in the packaging section at its native 480-pixel width, preserving its clarity. Choose a size from S through XXL and ask for a quote in WhatsApp.',
       colour: 'White',
       art: 'nairobi-city',
-      photos: [{ src: '06-nairobi-city-giftbox.jpg', alt: 'White NAIROBI CITY tee presented in the black Tisho gift box with grey tissue paper', fit: 'contain' }],
+      photos: [{ src: '06-nairobi-city-giftbox.jpg', alt: 'White NAIROBI CITY tee presented in the black Tisho gift box with grey tissue paper', width: 480, fit: 'contain', packagingOnly: true }],
       post: 'https://www.instagram.com/reel/DVdbD5VDYEY/'
     },
     {
@@ -74,21 +106,32 @@
       title: 'Nairobi Kenya Tee',
       short: 'White crew-neck · Grey block letters',
       category: 'CITY SERIES · CREW NECK',
-      description: 'A clean white crew-neck tee with NAIROBI KENYA set in grey block letters. Direct, understated, and unmistakably rooted in the city.',
+      description: 'A white crew-neck tee with NAIROBI KENYA set in grey block letters. The original styling pairs the hanger-held shirt with denim shorts and white sneakers for a clean, understated city look. Choose from S, M, L, XL and XXL, then contact Tisho directly for the price and order details.',
       colour: 'White',
       art: 'nairobi-kenya',
-      photos: [{ src: '03-nairobi-kenya-tee.webp', alt: 'White NAIROBI KENYA crew-neck tee on a hanger, styled with denim shorts and white sneakers', fit: 'cover' }],
+      photos: [{ src: '03-nairobi-kenya-tee.webp', alt: 'White NAIROBI KENYA crew-neck tee on a hanger, styled with denim shorts and white sneakers', width: 1080, height: 864, fit: 'cover' }],
       post: 'https://www.instagram.com/p/DFzn2WWoG03/'
+    },
+    {
+      id: 'nairobi-tee-black',
+      title: 'Nairobi Tee — Black',
+      short: 'Black tee · NAIROBI in green, gold and red',
+      category: 'CITY SERIES · NAIROBI',
+      description: 'A black Nairobi tee on a wooden hanger, carrying NAIROBI lettering in green, gold and red. The dark garment makes the city name and its colour treatment the centre of the design. Available in S–XXL through a direct WhatsApp order; prices are quoted in the conversation.',
+      colour: 'Black',
+      art: 'nairobi-tee-black',
+      photos: [{ src: '19-nairobi-tee-black.jpg', alt: 'Black Nairobi tee on a wooden hanger with NAIROBI in green, gold and red lettering', width: 640, fit: 'contain' }],
+      post: 'https://www.instagram.com/reel/DVikGTODRgO/'
     },
     {
       id: 'get-rich-tee',
       title: 'GET RICH OR DIE TRYIN Tee',
       short: 'Black tee · GET RICH OR DIE TRYIN graphic',
       category: 'GRAPHIC TEE · STATEMENT DESIGN',
-      description: 'A black tee carrying the GET RICH OR DIE TRYIN design, shown on a hanger and worn in the original Tisho Apparel reel.',
+      description: 'The black GET RICH OR DIE TRYIN Tee turns a bold statement into the whole design. Tisho’s original reel shows the graphic tee both on a hanger and worn, making the print and its placement easy to compare. Pick a size from S through XXL and send the product name and size to Tisho for a quote.',
       colour: 'Black',
       art: 'get-rich-tee',
-      photos: [{ src: '08-get-rich-tee.jpg', alt: 'Black GET RICH OR DIE TRYIN tee shown on a hanger and worn', fit: 'contain' }],
+      photos: [{ src: '08-get-rich-tee.jpg', alt: 'Black GET RICH OR DIE TRYIN tee shown on a hanger and worn', width: 640, fit: 'contain' }],
       post: 'https://www.instagram.com/reel/DW8oAXfDRgc/'
     },
     {
@@ -96,10 +139,10 @@
       title: 'Nipsey Graphic Tee',
       short: 'Grey / tan tee · Nipsey Hussle graphic',
       category: 'GRAPHIC TEE · PREMIUM',
-      description: 'A grey/tan Nipsey Hussle graphic tee on a hanger, from Tisho Apparel’s premium quality T-shirt collection.',
+      description: 'A grey/tan crew-neck tee featuring a Nipsey Hussle graphic, photographed on a wooden hanger. The warm-toned portrait graphic sits at the centre of the shirt in this premium Tisho Apparel design. Available in sizes S–XXL; ask for a price by DM or WhatsApp.',
       colour: 'Grey / tan',
       art: 'nipsey-graphic-tee',
-      photos: [{ src: '09-nipsey-graphic-tee.webp', alt: 'Grey and tan Nipsey Hussle graphic tee on a hanger', fit: 'cover' }],
+      photos: [{ src: '09-nipsey-graphic-tee.webp', alt: 'Grey and tan Nipsey Hussle graphic tee on a hanger', width: 1080, fit: 'cover' }],
       post: 'https://www.instagram.com/p/DWgG5dfDeNQ/'
     },
     {
@@ -107,7 +150,7 @@
       title: 'Custom Print Tee',
       short: 'Your idea · Designed and printed by Tisho',
       category: 'CUSTOM WORK · YOUR IDEA',
-      description: 'Think it, we design it and print it on your T-shirt. Bring your idea and Tisho will turn it into a custom-designed, custom-printed piece.',
+      description: 'Think it, we design it and print it on your T-shirt. Bring your idea to Tisho Apparel in Nairobi CBD and start a custom design conversation. The team can work from your idea to create and print a unique piece, with sizes S–XXL and a price quoted directly in the conversation.',
       colour: '',
       art: 'custom-print',
       photos: [],
@@ -118,7 +161,7 @@
       title: 'Custom Branding',
       short: 'Custom printing & branding for clients',
       category: 'CUSTOM WORK · CLIENT BRANDING',
-      description: 'Custom printing and branding work for clients. Bring the idea or brand requirement and start a direct design conversation with Tisho.',
+      description: 'Custom printing and branding for clients who bring an idea or brand requirement. Tisho’s service covers design and print, using the same direct DM or WhatsApp conversation as its ready-made catalogue. Discuss the project, receive a quote, and choose garment sizes S–XXL.',
       colour: '',
       art: 'custom-branding',
       photos: [],
@@ -131,122 +174,28 @@
   const productById = id => products.find(product => product.id === id);
   const esc = value => String(value).replace(/[&<>"']/g, character => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[character]));
 
-  function kenyaShape(x = 0, y = 0, scale = 1) {
-    return `<g transform="translate(${x} ${y}) scale(${scale})"><path d="M19 0 29 6 34 18 29 28 35 39 28 51 20 67 10 57 7 43 0 32 4 19 1 8 12 4Z" fill="#b98a32"/><path d="M7 43 20 67 28 51 23 45Z" fill="#2e654a"/><path d="M19 0 29 6 24 13 12 4Z" fill="#4b3827"/></g>`;
+  function galleryPhoto(product) {
+    return product.photos.find(photo => !photo.packagingOnly);
   }
 
-  function spearGraphic(x = 0, y = 0, scale = 1) {
-    return `<g transform="translate(${x} ${y}) scale(${scale})">
-      <path d="M25 0 43 27 29 23 29 116 23 116 23 23 9 27Z" fill="#b8943f"/>
-      <path d="M26 36 47 51 27 66 6 51Z" fill="#32684c"/>
-      <path d="M26 66 43 80 26 95 10 80Z" fill="#765237"/>
-      <path d="M0 110H52" stroke="#b8943f" stroke-width="3"/>
-    </g>`;
-  }
-
-  function shirtGraphic(type) {
-    switch (type) {
-      case 'home-tee-black':
-      case 'home-tee-white':
-        return `<g>
-          <text x="112" y="126" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="900" fill="#b78a32">H</text>
-          ${kenyaShape(99, 132, .78)}
-          <text x="112" y="207" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="900" fill="#b78a32">M</text>
-          <text x="112" y="239" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="900" fill="#b78a32">E</text>
-          ${spearGraphic(151, 127, .8)}
-        </g>`;
-      case 'proudly-kenyan':
-        return `<g text-anchor="middle" font-family="Arial, sans-serif" font-weight="900">
-          <text x="150" y="135" font-size="12" letter-spacing="5" fill="#eee">PROUDLY</text>
-          <text x="150" y="171" font-size="30" fill="#d7a53d">KEN</text><text x="202" y="171" font-size="30" fill="#3f8b61">YAN</text>
-          <path d="M101 187H199" stroke="#b74632" stroke-width="5"/><path d="M116 196H184" stroke="#eee" stroke-width="2"/>
-        </g>`;
-      case 'nairobi-city':
-        return `<g text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-weight="900">
-          <text x="150" y="143" font-size="30" letter-spacing="-1" fill="#181b19">NAIROBI</text>
-          <text x="150" y="181" font-size="43" letter-spacing="5" fill="#2c644c">CITY</text>
-          <path d="M107 195H193" stroke="#c49b43" stroke-width="4"/>
-        </g>`;
-      case 'nairobi-kenya':
-        return `<g text-anchor="middle" font-family="Arial, sans-serif" font-weight="900" fill="#737873">
-          <text x="150" y="151" font-size="27" letter-spacing="1">NAIROBI</text>
-          <text x="150" y="181" font-size="27" letter-spacing="4">KENYA</text>
-        </g>`;
-      case 'custom-print':
-        return `<g text-anchor="middle" font-family="Arial, sans-serif">
-          <text x="150" y="131" font-size="23" font-weight="900" fill="#20231f">THINK IT.</text>
-          <text x="150" y="157" font-size="17" font-weight="700" fill="#2c644c">WE DESIGN IT.</text>
-          <text x="150" y="182" font-size="17" font-weight="700" fill="#a07932">WE PRINT IT.</text>
-          <path d="M111 201 128 190 143 204 160 187 188 207" fill="none" stroke="#b74632" stroke-width="3"/>
-        </g>`;
-      case 'custom-branding':
-        return `<g text-anchor="middle" font-family="Arial, sans-serif">
-          <rect x="105" y="111" width="90" height="83" fill="none" stroke="#333832" stroke-width="2"/>
-          <path d="M105 111 195 194M195 111 105 194" stroke="#b8943f" stroke-width="2"/>
-          <rect x="119" y="125" width="62" height="55" fill="#f4f2e9"/>
-          <text x="150" y="147" font-size="12" font-weight="900" fill="#252824">YOUR</text>
-          <text x="150" y="165" font-size="12" font-weight="900" fill="#2c644c">BRAND</text>
-          <text x="150" y="218" font-size="8" letter-spacing="2" fill="#737873">DESIGNED + PRINTED</text>
-        </g>`;
-      default:
-        return '';
-    }
-  }
-
-  function hoodieGraphic() {
-    return `<g>
-      <text x="110" y="137" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="900" fill="#eee" transform="rotate(-90 110 137)">HOME</text>
-      <g transform="translate(151 105)">
-        <path d="M27 0 54 28 27 55 0 28Z" fill="#b74431"/><path d="M27 8 46 28 27 47 8 28Z" fill="#d6a337"/>
-        <path d="M27 16 38 28 27 40 16 28Z" fill="#2d674c"/><path d="M27 55 52 82 27 108 2 82Z" fill="#2d674c"/>
-        <path d="M27 63 44 82 27 100 10 82Z" fill="#d6a337"/><path d="M0 28 10 38 0 49-10 38Z" fill="#4b352a"/>
-        <path d="M54 28 64 38 54 49 44 38Z" fill="#4b352a"/>
-      </g>
-    </g>`;
-  }
-
-  function garmentSVG(product) {
-    const isHoodie = product.art === 'hoodie';
-    const dark = product.colour === 'Black' || isHoodie;
-    const fill = dark ? '#1b1d1c' : product.colour === 'White' ? '#f2f0e8' : '#e5e4dc';
-    const edge = dark ? '#080908' : '#c8c7bf';
-    const graphic = isHoodie ? hoodieGraphic() : shirtGraphic(product.art);
-    const id = `art-${product.id}`;
-    return `<svg viewBox="0 0 300 390" role="img" aria-labelledby="${id}-title" xmlns="http://www.w3.org/2000/svg">
-      <title id="${id}-title">Drawn design panel for ${esc(product.title)}</title>
-      <defs>
-        <filter id="${id}-shadow" x="-40%" y="-40%" width="180%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
-        <linearGradient id="${id}-cloth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${fill}"/><stop offset=".5" stop-color="${fill}"/><stop offset="1" stop-color="${dark ? '#101211' : '#deddd5'}"/></linearGradient>
-      </defs>
-      <ellipse cx="150" cy="340" rx="92" ry="13" fill="#222820" opacity=".17" filter="url(#${id}-shadow)"/>
-      ${isHoodie ? `<g>
-        <path d="M104 71 76 80 42 125 24 263 58 272 81 168 77 305Q150 325 223 305L219 168 242 272 276 263 258 125 224 80 196 71 182 54H118Z" fill="url(#${id}-cloth)" stroke="${edge}" stroke-width="1.4"/>
-        <path d="M118 54Q113 86 126 108Q150 122 174 108Q187 86 182 54Q170 30 150 30T118 54Z" fill="${dark ? '#242725' : fill}" stroke="${edge}" stroke-width="2"/>
-        <path d="M126 108Q150 90 174 108M137 103 133 150M163 103 167 150" fill="none" stroke="${dark ? '#777b75' : edge}" stroke-width="1.5"/>
-        <path d="M105 250Q150 232 195 250L188 289Q150 300 112 289Z" fill="none" stroke="${dark ? '#3f433f' : edge}"/>
-        ${graphic}
-      </g>` : `<g>
-        <path d="M103 63 72 75 31 119 63 155 88 132 81 302Q150 320 219 302L212 132 237 155 269 119 228 75 197 63Q184 93 150 93T103 63Z" fill="url(#${id}-cloth)" stroke="${edge}" stroke-width="1.4"/>
-        <path d="M103 63Q112 101 150 101T197 63M88 132 78 104M212 132 222 104M83 288Q150 304 217 288" fill="none" stroke="${edge}" stroke-width="1.5" opacity=".7"/>
-        ${graphic}
-      </g>`}
-    </svg>`;
-  }
-
-  function printCard(product, asButton = true, photoIndex = 0) {
+  function printCard(product, asButton = true, photoIndex = 0, wallMode = false) {
     const tag = asButton ? 'button' : 'div';
-    const photo = product.photos[photoIndex] || product.photos[0];
+    const photo = wallMode ? galleryPhoto(product) : product.photos[photoIndex];
+    const nativeWidth = photo ? Math.max(1, Number(photo.width) || 1) : 0;
+    const width = photo ? Math.min(264, nativeWidth) : 264;
     let artwork;
     if (photo) {
-      artwork = `<img class="product-photo ${photo.fit}" src="assets/photos/${photo.src}" alt="${esc(photo.alt)}" draggable="false" decoding="async">`;
+      artwork = `<img class="product-photo ${photo.fit === 'cover' ? 'cover' : 'contain'}" src="${esc(`assets/photos/${photo.src}`)}" alt="${esc(photo.alt)}" width="${nativeWidth}" height="${photo && photo.height ? photo.height : 1350}" draggable="false" decoding="async">`;
     } else if (product.art === 'custom-print') {
-      artwork = `<span class="service-art service-print"><strong>THINK<br>IT.</strong><span>WE DESIGN IT.</span><span>WE PRINT IT.</span><small>YOUR IDEA · YOUR T-SHIRT</small></span>`;
+      artwork = '<span class="service-art service-print"><strong>THINK<br>IT.</strong><span>WE DESIGN IT.</span><span>WE PRINT IT.</span><small>YOUR IDEA · YOUR T-SHIRT</small></span>';
+    } else if (product.art === 'nairobi-city') {
+      artwork = '<span class="service-art nairobi-city-panel"><small>TISHO CITY SERIES</small><strong>NAIROBI<br>CITY</strong><span>WHITE TEE · BOLD GRAPHIC</span></span>';
     } else {
-      artwork = `<span class="service-art service-branding"><small>CUSTOM PRINTING + BRANDING</small><strong>YOUR<br>BRAND</strong><span>DESIGNED + PRINTED BY TISHO</span></span>`;
+      artwork = '<span class="service-art service-branding"><small>CUSTOM PRINTING + BRANDING</small><strong>YOUR<br>BRAND</strong><span>DESIGNED + PRINTED BY TISHO</span></span>';
     }
-    return `<${tag} class="print-card${photo ? ' has-photo' : ' is-service'}"${asButton ? ` type="button" aria-label="View ${esc(product.title)}"` : ''}>
+    return `<${tag} class="print-card${photo ? ' has-photo' : ' is-service'}"${asButton ? ` type="button" aria-label="View ${esc(product.title)}"` : ''} style="max-width:${width}px">
       <span class="print-art">${artwork}</span>
-      <span class="print-meta"><span>TISHO APPAREL</span><span>${photo ? 'REAL PRODUCT PHOTO' : 'CUSTOM SERVICE'}</span></span>
+      <span class="print-meta"><span>TISHO APPAREL</span><span>${photo ? 'REAL PRODUCT PHOTO' : 'CATALOGUE DESIGN'}</span></span>
     </${tag}>`;
   }
 
@@ -257,7 +206,7 @@
     const panel = document.createElement('div');
     panel.className = 'wall-panel';
     panel.dataset.index = String(index);
-    panel.innerHTML = printCard(product);
+    panel.innerHTML = printCard(product, true, 0, true);
     panel.querySelector('button').addEventListener('click', event => {
       if (suppressClick) {
         event.preventDefault();
@@ -274,7 +223,7 @@
     const dot = document.createElement('button');
     dot.className = 'progress-dot';
     dot.type = 'button';
-    dot.setAttribute('aria-label', `Show ${product.title}`);
+    dot.setAttribute('aria-label', `Show ${String(product.title).replace(/[<>]/g, '')}`);
     dot.addEventListener('click', () => snapTo(index));
     progress.appendChild(dot);
   });
@@ -299,8 +248,7 @@
   const clamp = value => Math.max(0, Math.min(products.length - 1, value));
 
   function spacing() {
-    if (stage.clientWidth < 760) return Math.max(170, Math.min(225, stage.clientWidth * .52));
-    return Math.max(250, Math.min(335, stage.clientWidth * .235));
+    return Math.max(140, Math.min(300, stage.clientWidth * .23));
   }
 
   function updateCaption(index) {
@@ -317,17 +265,18 @@
   }
 
   function renderWall() {
-    const gap = spacing();
+    const radius = Math.max(370, Math.min(CYLINDER_RADIUS, stage.clientWidth * .72));
+    const step = ANGLE_PER_PIECE * Math.PI / 180;
     const front = Math.round(current);
     panels.forEach((panel, index) => {
       const offset = index - current;
+      const angle = offset * step;
       const distance = Math.abs(offset);
-      const x = offset * gap;
-      const y = Math.min(48, distance * distance * 9);
-      const z = -Math.min(420, distance * distance * 75);
-      const rotation = Math.max(-42, Math.min(42, offset * -13));
-      const opacity = distance > 3.65 ? 0 : Math.max(.12, 1 - Math.max(0, distance - 2.55) * .5);
-      panel.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${rotation}deg)`;
+      const x = Math.sin(angle) * radius;
+      const z = (Math.cos(angle) - 1) * radius;
+      const y = Math.min(42, distance * distance * 6);
+      const opacity = distance > 3.15 ? 0 : Math.max(.08, 1 - Math.max(0, distance - 1.7) * .46);
+      panel.style.transform = `translate3d(${x}px, ${y}px, ${z}px) rotateY(${-offset * ANGLE_PER_PIECE}deg)`;
       panel.style.opacity = String(opacity);
       panel.style.zIndex = String(100 - Math.round(distance * 10));
       panel.style.pointerEvents = opacity === 0 ? 'none' : 'auto';
@@ -457,7 +406,10 @@
     const thumbs = $('#product-photo-thumbs');
     if (product.photos.length > 1) {
       thumbs.hidden = false;
-      thumbs.innerHTML = product.photos.map((photo, index) => `<button type="button" class="photo-thumb${index === activeProductPhoto ? ' selected' : ''}" data-photo="${index}" aria-label="Show photo ${index + 1} for ${esc(product.title)}" aria-pressed="${index === activeProductPhoto}"><img src="assets/photos/${photo.src}" alt="" draggable="false"></button>`).join('');
+      thumbs.innerHTML = product.photos.map((photo, index) => {
+        const active = index === activeProductPhoto;
+        return `<button type="button" class="photo-thumb${active ? ' selected' : ''}" data-photo="${index}" aria-label="Show photo ${index + 1} for ${esc(product.title)}" aria-pressed="${active}"><img src="${esc(`assets/photos/${photo.src}`)}" alt="" width="${Math.max(1, Number(photo.width) || 1)}" height="1350" draggable="false"></button>`;
+      }).join('');
       $$('.photo-thumb', thumbs).forEach(button => {
         button.addEventListener('click', () => {
           activeProductPhoto = Number(button.dataset.photo);
@@ -474,7 +426,10 @@
     if (product.colours) {
       colourGroup.hidden = false;
       $('#colour-value').textContent = selectedColour;
-      colourOptions.innerHTML = product.colours.map(colour => `<button type="button" class="colour-option${colour.name === selectedColour ? ' selected' : ''}" style="--swatch:${colour.hex}" data-product="${colour.product}" aria-pressed="${colour.name === selectedColour}">${colour.name}</button>`).join('');
+      colourOptions.innerHTML = product.colours.map(colour => {
+        const selected = colour.name === selectedColour;
+        return `<button type="button" class="colour-option${selected ? ' selected' : ''}" style="--swatch:${esc(colour.hex)}" data-product="${esc(colour.product)}" aria-pressed="${selected}">${esc(colour.name)}</button>`;
+      }).join('');
       $$('.colour-option', colourOptions).forEach(button => {
         button.addEventListener('click', () => {
           activeProduct = products.findIndex(item => item.id === button.dataset.product);
@@ -488,7 +443,10 @@
     }
 
     $('#size-value').textContent = selectedSize || 'Select a size';
-    $('#size-options').innerHTML = SIZES.map(size => `<button type="button" class="size-option${size === selectedSize ? ' selected' : ''}" data-size="${size}" aria-pressed="${size === selectedSize}">${size}</button>`).join('');
+    $('#size-options').innerHTML = SIZES.map(size => {
+      const selected = size === selectedSize;
+      return `<button type="button" class="size-option${selected ? ' selected' : ''}" data-size="${esc(size)}" aria-pressed="${selected}">${esc(size)}</button>`;
+    }).join('');
     $$('.size-option', $('#size-options')).forEach(button => {
       button.addEventListener('click', () => {
         selectedSize = button.dataset.size;
