@@ -95,10 +95,10 @@
       title: 'Nairobi City Tee',
       short: 'White tee · Bold NAIROBI CITY graphic',
       category: 'CITY SERIES · NAIROBI',
-      description: 'A white tee with a bold NAIROBI CITY graphic. Tisho’s original feature presents the shirt on a wooden hanger and in the brand’s sleek black gift box lined with grey tissue paper. The gift-box photograph appears in the packaging section at its native 480-pixel width, preserving its clarity. Choose a size from S through XXL and ask for a quote in WhatsApp.',
+      description: 'A white tee with a bold NAIROBI CITY graphic. Tisho’s original feature presents the shirt on a wooden hanger and in the brand’s sleek black gift box lined with grey tissue paper. The gift-box photograph is shown at its native 480-pixel width to preserve its clarity, and also appears in the packaging section. Choose a size from S through XXL and ask for a quote in WhatsApp.',
       colour: 'White',
       art: 'nairobi-city',
-      photos: [{ src: '06-nairobi-city-giftbox.jpg', alt: 'White NAIROBI CITY tee presented in the black Tisho gift box with grey tissue paper', width: 480, fit: 'contain', packagingOnly: true }],
+      photos: [{ src: '06-nairobi-city-giftbox.jpg', alt: 'White NAIROBI CITY tee presented in the black Tisho gift box with grey tissue paper', width: 480, fit: 'contain' }],
       post: 'https://www.instagram.com/reel/DVdbD5VDYEY/'
     },
     {
